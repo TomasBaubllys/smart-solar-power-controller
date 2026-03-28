@@ -17,7 +17,7 @@ void toggle_relay_state_manual(uint8_t idx) {
 
   if(relays[idx].manual_mode == 1) {
       relays[idx].state = relays[idx].state == 1? 0 : 1;
-      digitalWrite(relays[idx].pin, relays[idx].state == 1? HIGH : LOW);
+      digitalWrite(relays[idx].pin, relays[idx].state);
   }
 }
 

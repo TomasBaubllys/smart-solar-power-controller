@@ -1,4 +1,5 @@
 #include "phase.h"
+#include "modbus.h"
 
 Phase phases[PHASE_COUNT]{};
 
@@ -18,9 +19,12 @@ float read_phase_voltage(const PHASE_NUM phase_num) {
 }
 
 float read_phase_current(const PHASE_NUM phase_num) {
-  // NOT IMPLEMENTED YET DUMMY FUNCTION
-  test_cntr += 0.3;
-  return test_cntr;
+  uint8_t slave = DEFAULT_SOLIS_SLAVE_ADDR;
+  uint8_t func_code = INV_OP_INF_FUNC_CODE;
+  uint32_t data = (uint32_t)PHASE_A_CURR_REG << 16 | 0x0003;
+  send_modbus_req(slave, func_code, data);
+
+  return test_cntr++;
 }
 
 void send_phase_info(AsyncWebSocket& ws){

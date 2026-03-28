@@ -9,7 +9,7 @@
 constexpr uint8_t RELAY_COUNT = 4;
 constexpr const char* DEFAULT_RELAY_CONFIG_FILE = "/relay_config.txt";
 
-constexpr uint8_t RELAY_PINS[] = {18, 19, 19, 19};
+constexpr uint8_t RELAY_PINS[] = {12, 13, 14, 15};
 
 struct Relay{
   float off_threshold;

@@ -9,6 +9,7 @@ Author: Tomas Baublys
 #include "relay.h"
 #include "phase.h"
 #include "wifi_credentials.h"
+#include "modbus.h"
 
 constexpr uint16_t WIFI_RETRY_DELAY = 1000;
 constexpr uint16_t TIMER_PRESCALER = 80;
@@ -21,9 +22,9 @@ AsyncWebSocket ws("/ws");
 
 volatile bool request_data = true;
 
-IPAddress local_ip(172, 20, 10, 7);
-IPAddress subnet(255, 255, 255, 240); 
-IPAddress gateway(172, 20, 10, 1);
+IPAddress local_ip(192, 168, 88, 132);
+IPAddress subnet(255, 255, 255, 0); 
+IPAddress gateway(192, 168, 88, 1);
 
 void IRAM_ATTR timer_update_data() {
 	request_data = true;
@@ -94,6 +95,7 @@ void on_ws_event(AsyncWebSocket* server, AsyncWebSocketClient *client, AwsEventT
 
 void setup() {
   Serial.begin(115200);
+  Serial2.begin(9600, SERIAL_8N1, RX2, TX2);
 
   if(!LittleFS.begin(false, "/littlefs", 10, "spiffs")){
     Serial.println("Failed to mount LittleFS!");
@@ -146,7 +148,7 @@ void loop() {
 
     update_relays(ws);
     send_phase_info(ws);
-	request_data = false;
+	  request_data = false;
   }
 
   ws.cleanupClients();
