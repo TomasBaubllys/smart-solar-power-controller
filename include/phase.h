@@ -21,11 +21,7 @@ struct Phase {
 
 extern Phase phases[PHASE_COUNT];
 
-float read_phase_pwr(const PHASE_NUM phase_num);
-
-float read_phase_voltage(const PHASE_NUM phase_num);
-
-float read_phase_current(const PHASE_NUM phase_num);
+void read_voltages_n_currents();
 
 void send_phase_info(AsyncWebSocket& ws);
 

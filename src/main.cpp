@@ -140,12 +140,7 @@ void setup() {
 
 void loop() {
   if(request_data) {
-    for(uint8_t i = 0; i < PHASE_COUNT; ++i) {
-    phases[i].current = read_phase_current((PHASE_NUM)i);
-    phases[i].voltage = read_phase_voltage((PHASE_NUM)i);
-    phases[i].power = read_phase_pwr((PHASE_NUM)i);
-    }
-
+    read_voltages_n_currents();
     update_relays(ws);
     send_phase_info(ws);
 	  request_data = false;
