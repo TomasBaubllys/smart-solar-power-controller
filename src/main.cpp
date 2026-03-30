@@ -3,6 +3,7 @@ Author: Tomas Baublys
 */
 
 #include <WiFi.h>
+#include "debug.h"
 #include <ESPAsyncWebServer.h>
 #include <AsyncTCP.h>
 #include <LittleFS.h>
@@ -39,7 +40,7 @@ void handle_ws_data(void* arg, uint8_t* data, size_t len) {
   memcpy(buff, data, len);
   buff[len] = 0;
 
-  Serial.println(buff);
+  debugln(buff);
 
   AwsFrameInfo* info = (AwsFrameInfo*)arg;
   if(info->opcode == WS_TEXT) {
